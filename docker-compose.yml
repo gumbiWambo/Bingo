@@ -7,7 +7,6 @@ services:
         links:
             - database
             - express
-     
     express:
         build: app-server
         ports:
@@ -18,3 +17,7 @@ services:
         image: mongo:4.2.6-bionic
         ports:
             - "9200:27017"
+    redis:
+        image: redis:6-alpine
+        ports:
+            - "9300:6379"

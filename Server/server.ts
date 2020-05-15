@@ -8,6 +8,6 @@ const server = http.createServer(app);
 const notification = new Notification(app);
 const wss = new WebSocket.Server({server});
 
-server.listen(1337, '192.168.2.118', () => {
+server.listen(1337, 'localhost', () => {
   console.log(`Server started on port ${JSON.stringify(server.address())}`);
 });

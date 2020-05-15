@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { SwPush } from '@angular/service-worker';
-import { NewsLetterService } from './news-letter.service';
+import { NewsLetterService } from './services/news-letter.service';
 
 @Component({
   selector: 'b-root',
@@ -12,7 +12,6 @@ export class AppComponent {
   title = 'Bingo';
   constructor(private swPush: SwPush, private newsletter: NewsLetterService) {}
   subscribeToNotifications() {
-    console.log('Subscribe');
     this.swPush.requestSubscription({
       serverPublicKey: this.PUBLIC_KEY
     }).then(sub => this.newsletter.register(sub)).catch(error => console.error('Failed', error));

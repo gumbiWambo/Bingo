@@ -4,7 +4,7 @@ export class Notification {
     "publicKey": "BIwtoJvtUF4V1uOzH1yejfJwGkoFZmNPP1x7bJp3M3BNRaPoGDNQxbYevVomi_XuYPcVFxLN193gp_fCxgPuL6g",
     "privateKey": "hUN6JQDc2LPFyud3R9jsDJ8Vom7J_4P_gw2e19EsU7Y"
   };
-  
+  private allSubscriptions: any[] = [];
 
   constructor(private app: any){
     webpush.setVapidDetails(
@@ -19,16 +19,15 @@ export class Notification {
   
 
   
-  public sendNewsletter(req: any, res: any) {
+  public sendNewsletter = (req: any, res: any) => {
+      this.allSubscriptions.push(req.body.sub);
   
-      const allSubscriptions: any[] = [];
-  
-      console.log('Total subscriptions', allSubscriptions.length);
+      console.log('Total subscriptions', this.allSubscriptions.length);
   
       const notificationPayload = {
           "notification": {
-              "title": "Angular News",
-              "body": "Newsletter Available!",
+              "title": "Bingo",
+              "body": "Bingo JHustle!",
               "icon": "assets/main-page-logo-small-hat.png",
               "vibrate": [100, 50, 100],
               "data": {
@@ -42,7 +41,7 @@ export class Notification {
           }
       };
   
-      Promise.all(allSubscriptions.map(sub => webpush.sendNotification(
+      Promise.all(this.allSubscriptions.map(sub => webpush.sendNotification(
           sub, JSON.stringify(notificationPayload) )))
           .then(() => res.status(200).json({message: 'Newsletter sent successfully.'}))
           .catch(err => {

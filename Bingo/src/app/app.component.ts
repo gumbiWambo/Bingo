@@ -12,7 +12,6 @@ export class AppComponent {
   title = 'Bingo';
   constructor(private swPush: SwPush, private newsletter: NewsLetterService) {}
   subscribeToNotifications() {
-    console.log('Subscribe');
     this.swPush.requestSubscription({
       serverPublicKey: this.PUBLIC_KEY
     }).then(sub => this.newsletter.register(sub)).catch(error => console.error('Failed', error));

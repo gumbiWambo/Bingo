@@ -1,5 +1,5 @@
 <ng-template ngFor let-row [ngForOf]="field">
   <ng-template ngFor let-entry [ngForOf]="row">
-    <button>{{entry}}</button>
+    <button (click)="sendToWebSocket()">{{entry}}</button>
   </ng-template>
 </ng-template>

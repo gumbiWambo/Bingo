@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { WebsocketService } from 'src/app/services/websocket.service';
 
 @Component({
   selector: 'b-bingo',
@@ -7,16 +8,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BingoComponent implements OnInit {
 
-  constructor() { }
-  public field = [
-    ['Mach es einfach richtig', 'Viele tolle Phrasen', 'Andere Tolle Phrase'],
-    ['Ja äh', 'Phrase 2', 'Phrase 3'],
-    ['Wie findet ihr das?', 'Phrase 4', 'Phrase 5'],
-    ['Wie findet ihr das?', 'Phrase 4', 'Phrase 5']
-  ]
+  public field = [];
+  constructor(private webSocketProvider: WebsocketService) {
+    this.webSocketProvider.connect<Array<any>>('ws://192.168.2.118:1337/').subscribe(data => {
+      this.field = data;
+      this.setCssVariable('--bingo-grid-rows', this.field.length);
+      this.setCssVariable('--bingo-grid-columns', this.field[0].length);
+    });
+  }
   ngOnInit(): void {
-    this.setCssVariable('--bingo-grid-rows', this.field.length);
-    this.setCssVariable('--bingo-grid-columns', this.field[0].length);
+  }
+  public sendToWebSocket() {
+    this.webSocketProvider.connect<object>('ws://192.168.2.118:1337/').next({message: 'Hi'})
   }
   private setCssVariable(variableName: string, amount: number) {
     document.documentElement.style.setProperty(variableName, `${amount}`);

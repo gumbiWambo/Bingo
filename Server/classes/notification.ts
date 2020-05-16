@@ -48,4 +48,24 @@ export class Notification {
         res.sendStatus(500);
       });
   }
+  public sendNotification(title: string, message: string){
+    const notificationPayload = {
+      "notification": {
+        "title": title,
+        "body": message,
+        "icon": "assets/icon-512x512.png",
+        "vibrate": [100, 50, 100],
+        "data": {
+          "dateOfArrival": Date.now(),
+          "primaryKey": 1
+        },
+        "actions": [{
+          "action": "blub",
+          "title": "Look the blub"
+        }]
+      }
+    };
+    Promise.all(this.allSubscriptions.map(sub => webpush.sendNotification(
+      sub, JSON.stringify(notificationPayload))))
+  }
 }

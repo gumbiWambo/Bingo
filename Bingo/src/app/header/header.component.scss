@@ -1,0 +1,26 @@
+:host{
+  background-color: black;
+  color: white;
+  display: flex;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 50px;
+  width: 100%;
+  button{
+    border: 3px white solid;
+    background-color: black;
+    color: white;
+    padding: 8px
+  }
+  nav{
+    position: fixed;
+    top: 50px;
+    left: 0;
+    height: calc(100vh - 50px);
+    width: 300px;
+    background-color: black;
+    box-sizing: border-box;
+    padding-left: 8px;
+  }
+}

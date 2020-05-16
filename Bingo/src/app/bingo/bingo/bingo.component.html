@@ -1,0 +1,5 @@
+<ng-template ngFor let-row [ngForOf]="field">
+  <ng-template ngFor let-entry [ngForOf]="row">
+    <button>{{entry}}</button>
+  </ng-template>
+</ng-template>

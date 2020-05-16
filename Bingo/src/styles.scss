@@ -1,1 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
+:root{
+  --bingo-grid-rows: 0;
+  --bingo-grid-columns: 0;
+}
+*{
+  font-family: Arial;
+}
+body{
+  margin: 50px 0 0 0;
+  height: calc(100vh - 50px);
+}

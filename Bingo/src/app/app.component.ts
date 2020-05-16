@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SwPush } from '@angular/service-worker';
-import { NewsLetterService } from './news-letter.service';
+import { NewsLetterService } from './services/news-letter.service';
 
 @Component({
   selector: 'b-root',

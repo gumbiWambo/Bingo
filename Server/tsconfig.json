@@ -1,17 +1,16 @@
-
 {
-    "compilerOptions": {
-        "target": "es6",
-        "module": "commonjs",
-        "outDir": "./dist/server",
-        "strict": true,
-        "sourceMap": true,
-        "typeRoots": [
-            "node_modules/@types"
-        ]
-    },
-    "exclude": [
-        "dist",
-        "node_modules"
-    ]
+  "compilerOptions": {
+  "target": "es6",
+  "module": "commonjs",
+  "outDir": "dist",
+  "sourceMap": true
+  },
+  "include": [
+    "*.ts",
+    "**/*.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    ".vscode"
+  ]
 }

@@ -3,14 +3,16 @@ WORKDIR /usr/src/app
 
 COPY package*.json ./
 
-RUN npm install
+RUN npm install --quiet
 
 COPY . .
 
-RUN npm run build
+CMD [ "npm", "start"]
+EXPOSE 4200
 
+# RUN npm run build --quiet
 
-FROM nginx:alpine
-COPY --from=angular_build /usr/src/app/dist/Bingo /usr/share/nginx/html
+# FROM nginx:alpine
+# COPY --from=angular_build /usr/src/app/dist/Bingo /usr/share/nginx/html
 
-EXPOSE 80
+# EXPOSE 80

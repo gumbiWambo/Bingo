@@ -1,23 +1,18 @@
 version: "3"
 services:
+    express:
+        build: server
+        ports: 
+            - "3000:3000"
+        volumes: 
+            - ./server:/usr/src/app/
+            - /usr/src/app/node_modules
     angular:
         build: Bingo
         ports:
-            - "9000:80"
-        links:
-            - database
+            - "9000:4200"
+        volumes: 
+            - ./Bingo:/usr/src/app
+            - /usr/src/app/node_modules 
+        links: 
             - express
-    express:
-        build: app-server
-        ports:
-            - "9100:8080"
-        links:
-            - database
-    database:
-        image: mongo:4.2.6-bionic
-        ports:
-            - "9200:27017"
-    redis:
-        image: redis:6-alpine
-        ports:
-            - "9300:6379"

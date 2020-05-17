@@ -6,15 +6,17 @@ import { HttpClient } from '@angular/common/http';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit{
+export class AppComponent implements OnInit {
   public title = 'Bingo';
-  public serverAnswer:string;
+  public serverAnswer: string;
 
-  constructor(private http:HttpClient){}
+  constructor(private http: HttpClient) { }
 
-  public ngOnInit(){
-    this.http.get<string>('http://localhost:9100')
-    .toPromise()
-    .then(value => this.serverAnswer = value);
+  public ngOnInit() {
+    this.http.get<{ message: string }>('http://localhost:3000')
+      .toPromise()
+      .then(value => {
+        this.serverAnswer = value.message;
+      });
   }
 }

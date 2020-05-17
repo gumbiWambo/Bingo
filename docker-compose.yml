@@ -1,18 +1,35 @@
+# version: "3"
+# services:
+#     express:
+#         build: server
+#         ports: 
+#             - "3000:3000"
+#         volumes: 
+#             - ./server:/usr/src/app/
+#             - /usr/src/app/node_modules
+#     angular:
+#         build: Bingo
+#         ports:
+#             - "9000:4200"
+#         volumes: 
+#             - ./Bingo:/usr/src/app
+#             - /usr/src/app/node_modules 
+#         links: 
+#             - express
+
 version: "3"
 services:
     express:
-        build: server
+        build: 
+            context: server
+            dockerfile: Dockerfile.prod
         ports: 
             - "3000:3000"
-        volumes: 
-            - ./server:/usr/src/app/
-            - /usr/src/app/node_modules
     angular:
-        build: Bingo
+        build:
+            context: Bingo
+            dockerfile: Dockerfile.prod
         ports:
-            - "9000:4200"
-        volumes: 
-            - ./Bingo:/usr/src/app
-            - /usr/src/app/node_modules 
+            - "9000:80"
         links: 
             - express

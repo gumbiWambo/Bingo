@@ -1,0 +1,16 @@
+version: "3"
+services: 
+  bingoserver:
+    build: Server
+    ports: 
+      - "1337:1337"
+    volumes: 
+      - ./Server:/usr/src/app
+      - /usr/src/app/node_modules
+  bingoangular:
+    build: Bingo
+    ports:
+      - "4200:4200"
+    volumes: 
+      - ./Bingo:/usr/src/app
+      - /usr/src/app/node_modules

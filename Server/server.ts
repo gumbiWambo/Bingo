@@ -15,8 +15,8 @@ const server = http.createServer(app);
 const wss = new WebSocket.Server({server});
 const notification = new Notification(app);
 const sessionManager = new SessionManager(wss, app);
-app.get('*',(req,res)=> {
-  res.sendfile(__dirname  + '/dist/Bingo/index.html');
+app.get('/',(req,res)=> {
+  res.send('Hallo Gerd!');
 });
 
 server.listen(1337, '0.0.0.0', () => {

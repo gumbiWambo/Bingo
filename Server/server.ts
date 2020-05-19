@@ -16,7 +16,7 @@ const wss = new WebSocket.Server({server});
 const notification = new Notification(app);
 const sessionManager = new SessionManager(wss, app);
 app.get('/',(req,res)=> {
-  res.send('Hallo Gerd!');
+  res.send('Hallo Hans!');
 });
 
 server.listen(1337, '0.0.0.0', () => {

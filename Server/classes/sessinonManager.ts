@@ -5,21 +5,34 @@ export class SessionManager{
   private sessions: Session[] = []
   constructor(private webSocketServer: WebSocket.Server, private app: Application){
     this.webSocketServer.on('connection', (webSocket: WebSocket) => {
-      const terms = [
-        'Beispiel0.0', 'Beispiel0.1', 'Beispiel0.2', 'Beispiel0.3', 'Beispiel0.4',
-        'Beispiel1.0', 'Beispiel1.1', 'Beispiel1.2', 'Beispiel1.3', 'Beispiel1.4',
-        'Beispiel2.0', 'Beispiel2.1', 'Beispiel2.2', 'Beispiel2.3', 'Beispiel2.4',
-        'Beispiel3.0', 'Beispiel3.1', 'Beispiel3.2', 'Beispiel3.3', 'Beispiel3.4',
-        'Beispiel4.0', 'Beispiel4.1', 'Beispiel4.2', 'Beispiel4.3', 'Beispiel4.4',
-      ]
-      this.sessions.push(new Session('1', terms));
-      webSocket.send(JSON.stringify([
-        ['Beispiel0.0', 'Beispiel0.1', 'Beispiel0.2', 'Beispiel0.3', 'Beispiel0.4'],
-        ['Beispiel1.0', 'Beispiel1.1', 'Beispiel1.2', 'Beispiel1.3', 'Beispiel1.4'],
-        ['Beispiel2.0', 'Beispiel2.1', 'Beispiel2.2', 'Beispiel2.3', 'Beispiel2.4'],
-        ['Beispiel3.0', 'Beispiel3.1', 'Beispiel3.2', 'Beispiel3.3', 'Beispiel3.4'],
-        ['Beispiel4.0', 'Beispiel4.1', 'Beispiel4.2', 'Beispiel4.3', 'Beispiel4.4'],
-      ]));
+      if(this.sessions[0]){
+        webSocket.send(JSON.stringify(this.sessions[0].field));
+      }
+    });
+    this.initApp();
+  }
+  private initApp() {
+    this.app.put('/api/session/leave', (req, res) => {
+
+    });
+    this.app.post('/api/session/create', (req, res) => {
+      if(req.body.hasOwnProperty('terms') && req.body.hasOwnProperty('name') && req.body.hasOwnProperty('size')) {
+        console.log('create');
+        const session = new Session(this.generateGuid(), req.body.terms, req.body.name, req.body.size);
+        this.sessions.push(session);
+        res.send(JSON.stringify(session));
+      } else {
+        res.sendStatus(400);
+      }
+    });
+    this.app.get('/api/session/', (req, res) => {
+      res.send(JSON.stringify(this.sessions));
+    });
+  }
+  private generateGuid(): string{
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+      var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+      return v.toString(16);
     });
   }
 

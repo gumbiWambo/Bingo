@@ -8,6 +8,7 @@ import { environment } from '../environments/environment';
 import { HttpClientModule } from '@angular/common/http';
 import { HeaderComponent } from './header/header.component';
 import { BingoModule } from './bingo/bingo.module';
+import { SessionModule } from './session/session.module';
 @NgModule({
   declarations: [
     AppComponent,
@@ -18,7 +19,8 @@ import { BingoModule } from './bingo/bingo.module';
     AppRoutingModule,
     HttpClientModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
-    BingoModule
+    BingoModule,
+    SessionModule
   ],
   providers: [],
   bootstrap: [AppComponent]

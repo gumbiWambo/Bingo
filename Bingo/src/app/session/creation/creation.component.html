@@ -1,1 +1,21 @@
-<p>creation works!</p>
+<p>{{actualStep}}/3</p>
+<div [ngSwitch]="actualStep">
+  <div *ngSwitchCase="1">
+    <form #nameForm="ngForm" (ngSubmit)="submitName(nameForm)">
+      <label>Session Name</label><input type="text" ngModel name="name" required>
+      <button>Next Step</button>
+    </form>
+  </div>
+  <div *ngSwitchCase="2">
+    <form #termsForm="ngForm" (ngSubmit)="submitTerms(termsForm)">
+      <label>Terms</label><b-terms ngModel name="terms"></b-terms>
+      <button>Next Step</button>
+    </form>
+  </div>
+  <div *ngSwitchCase="3">
+    <form #sizeForm="ngForm" (ngSubmit)="submitSize(sizeForm)">
+      <label>Field Size</label><input type="number" ngModel name="size" required>
+      <button>Next Step</button>
+    </form>
+  </div>
+</div>

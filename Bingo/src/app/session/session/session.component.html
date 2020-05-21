@@ -1,1 +1,12 @@
-<p>Ola</p>
+<h1>Sessions</h1>
+<ul>
+  <li *ngFor="let session of sessions">
+    <a [routerLink]="'/bingo/' + session.id">
+      {{session.name}}
+    </a>
+    <p>
+      Players: {{session.players.length}}
+    </p>
+  </li>
+</ul>
+<a routerLink="/session/create">Create</a>

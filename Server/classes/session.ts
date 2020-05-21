@@ -7,10 +7,10 @@ export class Session{
   constructor(public id: string, terms: string[], public name: string, size: number){
     if(terms.length >= size * size){
       const field = [];
-      for(let i = 0; i <= size; ++i) {
+      for(let i = 0; i < size; ++i) {
         const fieldRow = [];
-        for(let j = 0; j<= size; ++j) {
-          fieldRow.push(terms[j + i]);
+        for(let j = i * size; j< (i + 1) *size; ++j) {
+          fieldRow.push(terms[j]);
         }
         field.push(fieldRow);
       }

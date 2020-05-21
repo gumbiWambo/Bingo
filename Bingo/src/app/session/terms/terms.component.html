@@ -1,0 +1,9 @@
+<ul>
+  <li *ngFor="let entry of value">
+    {{entry}}
+  </li>
+</ul>
+<form #termForm="ngForm" (ngSubmit)="submitTerm(termForm)">
+  <input type="text" ngModel name="term" (enter)="submitTerm(termForm)" required>
+  <button>Add</button>
+</form>

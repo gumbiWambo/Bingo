@@ -12,12 +12,7 @@ export class WebsocketService {
   constructor() {}
 
   public connect<T>(url: string): BehaviorSubject<T>{
-    let connection: WebSocketConnection<T> = this.connections.find(x => x.url === url);
-    if(!connection) {
-      connection = {url, socket: this.createConnection(url)};
-      this.connections.push(connection);
-    }
-    return connection.socket;
+    return this.createConnection(url);
   }
   private createConnection<T>(url: string): BehaviorSubject<T> {
     const webSocket = new WebSocket(url);
@@ -34,7 +29,7 @@ export class WebsocketService {
           webSocket.send(JSON.stringify(data));
         }
       },
-      complete: () => webSocket.close(1, 'Connection closed from Frontend')
+      complete: () => webSocket.close()
     }
     return BehaviorSubject.create(observer, observable);
   }

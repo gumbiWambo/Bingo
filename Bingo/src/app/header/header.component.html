@@ -1,4 +1,6 @@
 <button (click)="toggleOpen()">Menu</button>
-<nav *ngIf="isOpen">
-  Hans Günther
+<nav *ngIf="isOpen" (click)="isOpen = false">
+  <div>
+    <a routerLink="session">Sessions</a>
+  </div>
 </nav>

@@ -1,12 +1,17 @@
 import { Application } from "express";
 import * as WebSocket from 'ws';
 import { Session } from "./session";
+import { IncomingMessage } from "http";
 export class SessionManager{
   private sessions: Session[] = []
   constructor(private webSocketServer: WebSocket.Server, private app: Application){
-    this.webSocketServer.on('connection', (webSocket: WebSocket) => {
-      if(this.sessions[0]){
-        webSocket.send(JSON.stringify(this.sessions[0].field));
+    this.webSocketServer.on('connection', (webSocket: WebSocket, req: IncomingMessage) => {
+      const sessionId = req.url?.split('?sessionId=')[1];
+      if(!!sessionId) {
+        const session = this.sessions.find(x => x.id === sessionId);
+          webSocket.send(JSON.stringify(session.field));
+      } else {
+        webSocket.close();
       }
     });
     this.initApp();

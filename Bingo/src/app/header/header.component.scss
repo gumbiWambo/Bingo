@@ -18,9 +18,14 @@
     top: 50px;
     left: 0;
     height: calc(100vh - 50px);
-    width: 300px;
-    background-color: black;
-    box-sizing: border-box;
-    padding-left: 8px;
+    width: 100vw;
+    background-color: rgba(128, 128, 128, 0.9);
+    >div{
+      height: 100%;
+      width: 300px;
+      background-color: black;
+      box-sizing: border-box;
+      padding-left: 8px;
+    }
   }
 }

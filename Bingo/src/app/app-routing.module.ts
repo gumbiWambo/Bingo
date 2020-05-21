@@ -10,7 +10,7 @@ const routes: Routes = [
   {
     path: 'session',
     loadChildren: () => import('./session/session.module').then(module => module.SessionModule)},
-  {path: 'bingo', component: BingoComponent}
+  {path: 'bingo/:sessionId', component: BingoComponent}
 ];
 
 @NgModule({

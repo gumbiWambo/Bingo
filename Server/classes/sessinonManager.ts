@@ -2,16 +2,18 @@ import { Application } from "express";
 import * as WebSocket from 'ws';
 import { Session } from "./session";
 import { IncomingMessage } from "http";
+import { URL } from "url";
 export class SessionManager{
   private sessions: Session[] = []
   constructor(private webSocketServer: WebSocket.Server, private app: Application){
     this.webSocketServer.on('connection', (webSocket: WebSocket, req: IncomingMessage) => {
-      const sessionId = req.url?.split('?sessionId=')[1];
-      if(!!sessionId) {
-        const session = this.sessions.find(x => x.id === sessionId);
-        if(session) {
-          webSocket.send(JSON.stringify(session.field));
-        }
+      console.log(req.url);
+      const queryFragments = req.url?.split('?')[1].split('&')
+      const sessionId = queryFragments.find(x => x.includes('sessionId'))?.split('=')[1] ;
+      const playerId = queryFragments.find(x => x.includes('playerId'))?.split('=')[1];
+      const session = this.sessions.find(x => x.id === sessionId);
+      if(!!session) {
+          session.addConnection(webSocket, playerId);
       } else {
         webSocket.close();
       }
@@ -23,9 +25,8 @@ export class SessionManager{
 
     });
     this.app.post('/api/session/create', (req, res) => {
-      if(req.body.hasOwnProperty('terms') && req.body.hasOwnProperty('name') && req.body.hasOwnProperty('size')) {
-        console.log('create');
-        const session = new Session(this.generateGuid(), req.body.terms, req.body.name, req.body.size);
+      if(req.body.hasOwnProperty('name') && req.body.hasOwnProperty('size') && req.body.hasOwnProperty('owner')) {
+        const session = new Session(this.generateGuid(), req.body.name, req.body.size, req.body.owner);
         this.sessions.push(session);
         res.send(JSON.stringify(session));
       } else {

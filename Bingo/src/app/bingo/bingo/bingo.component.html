@@ -1,5 +1,12 @@
-<ng-template ngFor let-row [ngForOf]="field">
-  <ng-template ngFor let-entry [ngForOf]="row">
-    <button (click)="sendToWebSocket()">{{entry}}</button>
+<ng-template [ngIf]="!!field && !!field.length">
+  <ng-template ngFor let-row [ngForOf]="field">
+    <ng-template ngFor let-entry [ngForOf]="row">
+      <button>{{entry}}</button>
+    </ng-template>
   </ng-template>
 </ng-template>
+<form *ngIf="showForm && (!field || !field.length)" #termsForm="ngForm" (ngSubmit)="sendTerms(termsForm)">
+  <input *ngFor="let value of size; index as i" type="text" ngModel required [name]="i + 1">
+  <button [disabled]="!termsForm.valid">Bestätigen</button>
+</form>
+<button *ngIf="isOwner && !!field && !field.length" (click)="startGame()">StartRound</button>

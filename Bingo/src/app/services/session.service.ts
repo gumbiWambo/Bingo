@@ -9,8 +9,8 @@ import { Session } from '../interfaces/session.interface';
 export class SessionService {
 
   constructor(private http: HttpClient) { }
-  public createSession(name: string, size: number, terms: string[]): Promise<any> {
-    return this.http.post(environment.serverUrl + '/api/session/create', {name, terms, size}).toPromise();
+  public createSession(name: string, size: number): Promise<any> {
+    return this.http.post(environment.serverUrl + '/api/session/create', {name, size, owner: '1'}).toPromise();
   }
   public getSessions(): Promise<Session[]> {
     return this.http.get<Session[]>(environment.serverUrl + '/api/session').toPromise();

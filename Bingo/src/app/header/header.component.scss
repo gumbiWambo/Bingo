@@ -1,6 +1,7 @@
+@import '../variables.scss';
 :host{
-  background-color: black;
-  color: white;
+  background-color: darken($main-color, 20%);
+  color: $quaternary-color;
   display: flex;
   position: fixed;
   top: 0;
@@ -8,10 +9,18 @@
   height: 50px;
   width: 100%;
   button{
-    border: 3px white solid;
-    background-color: black;
-    color: white;
-    padding: 8px
+    border: 3px $quaternary-color solid;
+    background-color: darken($main-color, 20%);
+    color: $quaternary-color;
+    padding: 8px;
+    &:hover{
+      background-color: lighten($color: $main-color, $amount: 5%);
+    }
+    &:active{
+      border-color: $main-color;
+      background-color: $quaternary-color;
+      color: $main-color;
+    }
   }
   nav{
     position: fixed;
@@ -23,7 +32,7 @@
     >div{
       height: 100%;
       width: 300px;
-      background-color: black;
+      background-color: $main-color;
       box-sizing: border-box;
       padding-left: 8px;
     }

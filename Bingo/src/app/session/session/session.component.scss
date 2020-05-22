@@ -1,0 +1,49 @@
+@import '../../variables.scss';
+*{
+  background-color: $main-color;
+  margin: 0;
+  box-sizing: border-box;
+}
+:host{
+  background-color: $main-color;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+}
+h1{
+  background-color: $main-color;
+  color: $quaternary-color;
+}
+ul{
+  padding: 0;
+  li{
+    list-style: none;
+    *{
+      color: $quaternary-color;
+      text-decoration: none;
+    }
+    a{
+      background-color: $secondary-color;
+      color: $quaternary-color;
+      text-decoration: none;
+      padding: 2px;
+      &:active{
+        background-color: $quaternary-color;
+        color: $secondary-color;
+      }
+    }
+  }
+}
+a.createLink{
+  padding: 8px;
+  background-color: $secondary-color;
+  color: $quaternary-color;
+  text-decoration: none;
+  width: 70px;
+  &:active{
+    background-color: $quaternary-color;
+    color: $secondary-color;
+  }
+}

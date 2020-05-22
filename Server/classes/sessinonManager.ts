@@ -9,7 +9,9 @@ export class SessionManager{
       const sessionId = req.url?.split('?sessionId=')[1];
       if(!!sessionId) {
         const session = this.sessions.find(x => x.id === sessionId);
+        if(session) {
           webSocket.send(JSON.stringify(session.field));
+        }
       } else {
         webSocket.close();
       }

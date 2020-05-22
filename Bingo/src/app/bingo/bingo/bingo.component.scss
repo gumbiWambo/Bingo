@@ -1,3 +1,4 @@
+@import '../../variables.scss';
 :host{
   display: grid;
   grid-template-columns: repeat(var(--bingo-grid-columns), 1fr);
@@ -5,16 +6,16 @@
   height: 100%;
 }
 button{
-  border: 3px white solid;
-  background-color: black;
-  color: white;
+  border: 3px $quaternary-color solid;
+  background-color: $main-color;
+  color: $quaternary-color;
   padding: 8px;
   &:hover{
-    background-color: lighten($color: black, $amount: 30%);
+    background-color: lighten($color: $main-color, $amount: 5%);
   }
   &:active{
-    border-color: black;
-    background-color: white;
-    color: black;
+    border-color: $main-color;
+    background-color: $quaternary-color;
+    color: $main-color;
   }
 }

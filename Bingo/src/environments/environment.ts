@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  serverUrl: 'http://localhost:1337',
-  socketUrl: 'ws://localhost:1337'
+  serverUrl: 'http://192.168.2.118:1337',
+  socketUrl: 'ws://192.168.2.118:1337'
 };
 
 /*

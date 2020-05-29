@@ -5,6 +5,7 @@ import * as WebSocket from 'ws';
 import * as bodyParser from 'body-parser';
 import {Notification} from './classes/notification'
 import { SessionManager } from './classes/sessinonManager';
+import { UserManager } from './classes/userManager';
 var cors = require('cors');
 const app = express();
 app.use(cors());
@@ -15,6 +16,7 @@ const server = http.createServer(app);
 const wss = new WebSocket.Server({server});
 const notification = new Notification(app);
 const sessionManager = new SessionManager(wss, app);
+const userManager = new UserManager(app);
 app.get('/',(req,res)=> {
   res.send('Hallo Hans!');
 });

@@ -14,16 +14,15 @@ export class CreationComponent implements OnInit {
   public actualStep = 1;
   private newSession = {
     name: null,
-    terms: null,
     size: null
   }
   ngOnInit(): void {
   }
   public nextStep() {
-    if(this.actualStep + 1 <= 3) {
+    if(this.actualStep + 1 <= 2) {
       ++this.actualStep;
-    } else if(this.newSession.name && this.newSession.terms && this.newSession.size){
-      this.sessionProvider.createSession(this.newSession.name, this.newSession.size, this.newSession.terms).then((session) => {
+    } else if(this.newSession.name && this.newSession.size){
+      this.sessionProvider.createSession(this.newSession.name, this.newSession.size).then((session) => {
         this.router.navigate([`/bingo/${session.id}`]);
       });
     }
@@ -31,14 +30,6 @@ export class CreationComponent implements OnInit {
   public submitName(form: NgForm) {
     if(form.valid) {
       this.newSession.name = form.value.name;
-      this.nextStep();
-    } else {
-      console.error('Form invalid');
-    }
-  }
-  public submitTerms(form: NgForm) {
-    if(form.valid) {
-      this.newSession.terms = form.value.terms;
       this.nextStep();
     } else {
       console.error('Form invalid');

@@ -1,4 +1,4 @@
-<p>{{actualStep}}/3</p>
+<p>{{actualStep}}/2</p>
 <div [ngSwitch]="actualStep">
   <div *ngSwitchCase="1">
     <form #nameForm="ngForm" (ngSubmit)="submitName(nameForm)">
@@ -7,12 +7,6 @@
     </form>
   </div>
   <div *ngSwitchCase="2">
-    <form #termsForm="ngForm" (ngSubmit)="submitTerms(termsForm)">
-      <label>Terms</label><b-terms ngModel name="terms"></b-terms>
-      <button>Next Step</button>
-    </form>
-  </div>
-  <div *ngSwitchCase="3">
     <form #sizeForm="ngForm" (ngSubmit)="submitSize(sizeForm)">
       <label>Field Size</label><input type="number" ngModel name="size" required>
       <button>Next Step</button>

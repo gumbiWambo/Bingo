@@ -6,7 +6,7 @@
   </ng-template>
 </ng-template>
 <form *ngIf="showForm && (!field || !field.length)" #termsForm="ngForm" (ngSubmit)="sendTerms(termsForm)">
-  <input *ngFor="let value of size; index as i" type="text" ngModel required [name]="i + 1">
+  <input *ngFor="let value of size; index as i" type="text" placeholder="Term/Phrase" ngModel required [name]="i + 1">
   <button [disabled]="!termsForm.valid">Bestätigen</button>
 </form>
 <button *ngIf="isOwner && !!field && !field.length" (click)="startGame()">StartRound</button>

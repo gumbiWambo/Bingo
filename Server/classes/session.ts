@@ -3,37 +3,39 @@ import * as WebSocket from 'ws';
 export class Session{
   private players: Player[] = [];
   private readyStatePlayers: {name: string, ready: boolean}[] = [];
-  private connections: {playerId: string, field: Array<Array<string>>, socket: WebSocket}[] = [];
+  private connections: {player: Player, field: Array<Array<string>>, socket: WebSocket}[] = [];
 
-  public field: Array<any>;
-  constructor(public id: string, public name: string, private size: number, private ownerId: string){
-
-  }
+  public started: boolean = false;
+  constructor(public id: string, public name: string, private size: number, private ownerId: string){}
   public addConnection(ws: WebSocket, playerId: string) {
-    if(this.connections.find(x => x.playerId === playerId)) {
-      const establishedConnection = this.connections.find(x => x.playerId === playerId);
+    if(this.connections.find(x => x.player.id === playerId)) {
+      const establishedConnection = this.connections.find(x => x.player.id === playerId);
       establishedConnection.socket = ws;
       establishedConnection.socket.send(JSON.stringify(establishedConnection.field));
-    }
-    ws.send(JSON.stringify({size: this.size}));
-    const connection = {playerId, field: undefined, socket: ws};
-    const readyEntry = {name: playerId, ready: false}
-    this.readyStatePlayers.push(readyEntry);
-    this.sendOwnerPlayerReady();
-    if(playerId === this.ownerId) {
-      connection.socket.send(JSON.stringify({isOwner: true}));
-    }
-    ws.on('message', (data: string) => {
-      const parsedData = JSON.parse(data);
-      if(parsedData.type === 'terms') {
-        connection.field = this.createField(parsedData.data);
-        readyEntry.ready = true;
-        this.sendOwnerPlayerReady();
-      } else if(playerId === this.ownerId && parsedData.type === 'start') {
-        this.sendFields();
+    } else {
+      ws.send(JSON.stringify({size: this.size}));
+      const connection = {player: new Player('Andy', playerId), field: undefined, socket: ws};
+      const readyEntry = {name: connection.player.name, ready: false}
+      this.readyStatePlayers.push(readyEntry);
+      this.sendOwnerPlayerReady();
+      if(playerId === this.ownerId) {
+        connection.socket.send(JSON.stringify({isOwner: true}));
       }
-    });
-    this.connections.push(connection);
+      ws.on('message', (data: string) => {
+        const parsedData = JSON.parse(data);
+        if(parsedData.type === 'terms') {
+          connection.field = this.createField(parsedData.data);
+          readyEntry.ready = true;
+          this.sendOwnerPlayerReady();
+        } else if(playerId === this.ownerId && parsedData.type === 'start') {
+          this.started = true;
+          this.sendFields();
+        } else if(parsedData.type === 'fieldClicked') {
+  
+        }
+      });
+      this.connections.push(connection);
+    }
   }
   public addPlayer(player: Player): boolean {
     this.players.push(player);
@@ -41,7 +43,7 @@ export class Session{
   }
   private sendOwnerPlayerReady() {
 
-    this.connections.find(x => x.playerId === this.ownerId)?.socket.send(JSON.stringify({type: 'readyState', data: this.readyStatePlayers}));
+    this.connections.find(x => x.player.id === this.ownerId)?.socket.send(JSON.stringify({type: 'readyState', data: this.readyStatePlayers}));
   }
   private sendFields() {
     this.connections.forEach(connection => {

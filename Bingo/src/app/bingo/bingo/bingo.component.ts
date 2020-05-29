@@ -20,16 +20,16 @@ export class BingoComponent implements OnInit, OnDestroy {
   private webSocket: BehaviorSubject<any>;
   constructor(private webSocketProvider: WebsocketService, private route: ActivatedRoute) {
     const sessionId = this.route.snapshot.paramMap.get('sessionId');
-    this.webSocket = this.webSocketProvider.connect<Array<any>>(`${environment.socketUrl}?sessionId=${sessionId}&playerId=1`);
+    const playerId = window.sessionStorage.getItem('player');
+    this.webSocket = this.webSocketProvider.connect<Array<any>>(`${environment.socketUrl}?sessionId=${sessionId}&playerId=${playerId}`);
     this.webSocket.subscribe((data: any) => {
       if(!!data.size) {
         this.size = new Array<string>(data.size * data.size);
-        console.log(this.size);
       } else if(!!data.isOwner){
         this.isOwner = true;
       } else if (data.type && data.type === 'ready'){
         this.readyPlayers = data.data;
-      } else {
+      } else if(Array.isArray(data)){
         this.setField(data);
       }
     });

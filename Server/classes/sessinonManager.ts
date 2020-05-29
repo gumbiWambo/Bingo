@@ -2,7 +2,6 @@ import { Application } from "express";
 import * as WebSocket from 'ws';
 import { Session } from "./session";
 import { IncomingMessage } from "http";
-import { URL } from "url";
 export class SessionManager{
   private sessions: Session[] = []
   constructor(private webSocketServer: WebSocket.Server, private app: Application){

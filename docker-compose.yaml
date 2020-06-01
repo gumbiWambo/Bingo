@@ -14,3 +14,9 @@ services:
     volumes: 
       - ./Bingo:/usr/src/app
       - /usr/src/app/node_modules
+  mongo:
+    image: mongo:latest
+    volumes:
+      - ./db:/db/data
+    ports: 
+      - "27017:27017"

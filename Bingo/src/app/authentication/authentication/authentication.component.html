@@ -1,1 +1,20 @@
-<p>authentication works!</p>
+<ng-template [ngIf]="register" [ngIfElse]="login">
+  <h1>Register</h1>
+  <form #registerForm="ngForm" (ngSubmit)="submitRegister(registerForm)">
+    <input type="text" placeholder="Username" ngModel name="username" required>
+    <input type="text" placeholder="Email" ngModel name="email" required>
+    <input type="password" placeholder="Password" ngModel name="password" required>
+    <input type="password" placeholder="Repeat Password" ngModel name="repeatPassword" required>
+    <button>Register</button>
+  </form>
+  <button (click)="register = false">Login</button>
+</ng-template>
+<ng-template #login> 
+  <h1>Login</h1>
+  <form #loginForm="ngForm" (ngSubmit)="submitLogin(loginForm)">
+    <input type="text" placeholder="Username" ngModel name="username" required>
+    <input type="password" placeholder="Password" ngModel name="password" required>
+    <button>Login</button>
+  </form>
+  <button (click)="register = true">Register</button>
+</ng-template>

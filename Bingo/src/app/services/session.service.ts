@@ -10,7 +10,11 @@ export class SessionService {
 
   constructor(private http: HttpClient) { }
   public createSession(name: string, size: number): Promise<any> {
-    return this.http.post(environment.serverUrl + '/api/session/create', {name, size, owner: '1'}).toPromise();
+    if(sessionStorage.getItem('player')) {
+      return this.http.post(environment.serverUrl + '/api/session/create', {name, size, owner: sessionStorage.getItem('player')}).toPromise();
+    } else {
+      return Promise.reject('Not Loged on!');
+    }
   }
   public getSessions(): Promise<Session[]> {
     return this.http.get<Session[]>(environment.serverUrl + '/api/session').toPromise();

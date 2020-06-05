@@ -1,8 +1,8 @@
 {
-  "name": "Bingo",
-  "short_name": "Bingo",
-  "theme_color": "#1976d2",
-  "background_color": "#fafafa",
+  "name": "JHustles Fancy Flamingo Bingo",
+  "short_name": "Flamingo Bingo",
+  "theme_color": "#ff5a77",
+  "background_color": "#2F4858",
   "display": "standalone",
   "scope": "./",
   "start_url": "./",

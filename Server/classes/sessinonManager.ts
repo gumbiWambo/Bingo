@@ -6,7 +6,6 @@ export class SessionManager{
   private sessions: Session[] = []
   constructor(private webSocketServer: WebSocket.Server, private app: Application){
     this.webSocketServer.on('connection', (webSocket: WebSocket, req: IncomingMessage) => {
-      console.log(req.url);
       const queryFragments = req.url?.split('?')[1].split('&')
       const sessionId = queryFragments.find(x => x.includes('sessionId'))?.split('=')[1] ;
       const playerId = queryFragments.find(x => x.includes('playerId'))?.split('=')[1];
@@ -33,7 +32,7 @@ export class SessionManager{
       }
     });
     this.app.get('/api/session/', (req, res) => {
-      res.send(JSON.stringify(this.sessions));
+      res.send(JSON.stringify(this.sessions.filter(x => !x.started)));
     });
   }
   private generateGuid(): string{

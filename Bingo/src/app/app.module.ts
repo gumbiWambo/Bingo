@@ -9,6 +9,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { HeaderComponent } from './header/header.component';
 import { BingoModule } from './bingo/bingo.module';
 import { SessionModule } from './session/session.module';
+import { AuthenticationModule } from './authentication/authentication.module';
 @NgModule({
   declarations: [
     AppComponent,
@@ -20,7 +21,8 @@ import { SessionModule } from './session/session.module';
     HttpClientModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     BingoModule,
-    SessionModule
+    SessionModule,
+    AuthenticationModule
   ],
   providers: [],
   bootstrap: [AppComponent]
